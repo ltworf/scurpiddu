@@ -11,6 +11,12 @@ class AudioPlayer : public QObject
 public:
     AudioPlayer(QObject *parent = 0);
     ~AudioPlayer();
+    Q_PROPERTY(
+            double volume
+            READ volume
+            WRITE setVolume
+            NOTIFY volumeChanged
+    )
 
 private:
     mpv_handle *mpv = NULL;
@@ -21,6 +27,7 @@ signals:
     void duration(double duration);
     void progress(double pos);
     void mpv_events();
+    void volumeChanged(double);
 
 private slots:
     void on_mpv_events();
@@ -28,6 +35,8 @@ private slots:
 public slots:
     void open(QByteArray path);
     void seek(double position);
+    void setVolume(double);
+    double volume();
 
 };
 

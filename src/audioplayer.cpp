@@ -20,6 +20,7 @@ AudioPlayer::AudioPlayer(QObject *parent) : QObject(parent)
     // Let us receive property change events with MPV_EVENT_PROPERTY_CHANGE if
     // this property changes.
     mpv_observe_property(mpv, 0, "time-pos", MPV_FORMAT_DOUBLE);
+    mpv_observe_property(mpv, 0, "volume", MPV_FORMAT_DOUBLE);
 
 
     // From this point on, the wakeup function will be called. The callback
@@ -36,6 +37,16 @@ AudioPlayer::AudioPlayer(QObject *parent) : QObject(parent)
 AudioPlayer::~AudioPlayer() {
     if (mpv)
         mpv_terminate_destroy(mpv);
+}
+
+double AudioPlayer::volume()  {
+    double result = 0;
+    mpv_get_property(mpv, "volume", MPV_FORMAT_DOUBLE, &result);
+    return result;
+}
+
+void AudioPlayer::setVolume(double v) {
+    mpv_set_property_async(mpv, 0, "volume", MPV_FORMAT_DOUBLE, &v);
 }
 
 void AudioPlayer::open(QByteArray path) {
@@ -125,9 +136,18 @@ void AudioPlayer::handle_mpv_event(mpv_event *event)
             break;
         case MPV_EVENT_PROPERTY_CHANGE: {
             QString name(prop->name);
-            if (name == "time-pos" && prop->format == MPV_FORMAT_DOUBLE) {
-                double time = *(double *)prop->data;
-                emit progress(time);
+            double value = 0;
+            switch(prop->format){
+                case MPV_FORMAT_DOUBLE:
+                    value = *(double *)prop->data;
+                default:
+                    ;
+            }
+
+            if (name == "time-pos") {
+                emit progress(value);
+            } else if (name == "volume") {
+                emit volumeChanged(value);
             }
             break;
             }
