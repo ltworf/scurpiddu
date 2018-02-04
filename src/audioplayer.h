@@ -30,6 +30,21 @@ class AudioPlayer : public QObject
 public:
     AudioPlayer(QObject *parent = 0);
     ~AudioPlayer();
+
+    enum States {
+        STOPPED = 0,
+        PLAYING = 1,
+        PAUSED = -1,
+    };
+
+    Q_ENUM(States)
+
+    Q_PROPERTY(
+            States state
+            READ state
+            NOTIFY stateChanged
+    )
+
     Q_PROPERTY(
             double volume
             READ volume
@@ -54,13 +69,16 @@ private:
     void handle_mpv_event(mpv_event*);
     double _duration;
     double _progress;
+    States _state;
+    void _setState(States);
 
 signals:
     void completed();
-    void durationChanged(double durationChanged);
-    void progressChanged(double pos);
+    void durationChanged(double);
+    void progressChanged(double);
     void _mpv_events();
     void volumeChanged(double);
+    void stateChanged(States);
 
 private slots:
     void on_mpv_events();
@@ -72,6 +90,8 @@ public slots:
     double volume();
     double duration();
     double progress();
+    States state();
+    void playpause();
 };
 
 #endif // AUDIOPLAYER_H

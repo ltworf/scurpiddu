@@ -58,6 +58,14 @@ AudioPlayer::~AudioPlayer() {
         mpv_terminate_destroy(mpv);
 }
 
+void AudioPlayer::_setState(States s) {
+    qDebug() << "State is" << s;
+    if (s == _state)
+        return;
+    _state = s;
+    emit stateChanged(s);
+}
+
 double AudioPlayer::duration() {
     return _duration;
 }
@@ -70,6 +78,10 @@ double AudioPlayer::volume()  {
     double result = 0;
     mpv_get_property(mpv, "volume", MPV_FORMAT_DOUBLE, &result);
     return result;
+}
+
+AudioPlayer::States AudioPlayer::state() {
+    return _state;
 }
 
 void AudioPlayer::setVolume(double v) {
@@ -85,6 +97,22 @@ void AudioPlayer::seek(double position) {
     const char* value = QString::number(position).toStdString().c_str();
     const char *args[] = {"seek", value, "absolute", NULL};
     mpv_command_async(mpv, 0, args);
+}
+
+void AudioPlayer::playpause() {
+    const char* v;
+    switch (_state) {
+        case AudioPlayer::States::STOPPED:
+            return;
+        case  AudioPlayer::States::PLAYING:
+            v = "yes";
+            break;
+        case  AudioPlayer::States::PAUSED:
+            v = "no";
+            break;
+    }
+    mpv_set_property_async(mpv, 0, "pause", MPV_FORMAT_STRING, &v);
+    _setState((AudioPlayer::States)((int)_state * -1));
 }
 
 void AudioPlayer::handle_mpv_event(mpv_event *event)
@@ -149,7 +177,8 @@ void AudioPlayer::handle_mpv_event(mpv_event *event)
             qDebug() << "seek";
             break;
         case MPV_EVENT_PLAYBACK_RESTART:
-            qDebug() << "playback restart";
+            qDebug() << "playing";
+            _setState(AudioPlayer::States::PLAYING);
             break;
         case MPV_EVENT_CHAPTER_CHANGE:
             qDebug() << "chapter change";
@@ -166,9 +195,10 @@ void AudioPlayer::handle_mpv_event(mpv_event *event)
             switch(prop->format){
                 case MPV_FORMAT_DOUBLE:
                     value = *(double *)prop->data;
+                    break;
                 default:
                     ;
-            }
+            };
 
             if (name == "time-pos") {
                 emit progressChanged(value);
