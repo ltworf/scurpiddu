@@ -37,15 +37,29 @@ public:
             NOTIFY volumeChanged
     )
 
+    Q_PROPERTY(double duration
+               READ duration
+               NOTIFY durationChanged
+    )
+
+    Q_PROPERTY(
+            double progress
+            READ progress
+            WRITE seek
+            NOTIFY progressChanged
+    )
+
 private:
     mpv_handle *mpv = NULL;
     void handle_mpv_event(mpv_event*);
+    double _duration;
+    double _progress;
 
 signals:
     void completed();
-    void duration(double duration);
-    void progress(double pos);
-    void mpv_events();
+    void durationChanged(double durationChanged);
+    void progressChanged(double pos);
+    void _mpv_events();
     void volumeChanged(double);
 
 private slots:
@@ -56,7 +70,8 @@ public slots:
     void seek(double position);
     void setVolume(double);
     double volume();
-
+    double duration();
+    double progress();
 };
 
 #endif // AUDIOPLAYER_H

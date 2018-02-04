@@ -25,7 +25,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 static void wakeup(void *mpv)
 {
     AudioPlayer *mainwindow = (AudioPlayer*)mpv;
-    emit mainwindow->mpv_events();
+    emit mainwindow->_mpv_events();
 }
 
 AudioPlayer::AudioPlayer(QObject *parent) : QObject(parent)
@@ -45,7 +45,7 @@ AudioPlayer::AudioPlayer(QObject *parent) : QObject(parent)
     // From this point on, the wakeup function will be called. The callback
     // can come from any thread, so we use the QueuedConnection mechanism to
     // relay the wakeup in a thread-safe way.
-    connect(this, &AudioPlayer::mpv_events, this, &AudioPlayer::on_mpv_events,
+    connect(this, &AudioPlayer::_mpv_events, this, &AudioPlayer::on_mpv_events,
             Qt::QueuedConnection);
     mpv_set_wakeup_callback(mpv, wakeup, this);
 
@@ -56,6 +56,14 @@ AudioPlayer::AudioPlayer(QObject *parent) : QObject(parent)
 AudioPlayer::~AudioPlayer() {
     if (mpv)
         mpv_terminate_destroy(mpv);
+}
+
+double AudioPlayer::duration() {
+    return _duration;
+}
+
+double AudioPlayer::progress() {
+    return _progress;
 }
 
 double AudioPlayer::volume()  {
@@ -100,9 +108,8 @@ void AudioPlayer::handle_mpv_event(mpv_event *event)
             qDebug() << "start file";
             break;
         case MPV_EVENT_FILE_LOADED: {
-            double result = 0;
-            mpv_get_property(mpv, "duration", MPV_FORMAT_DOUBLE, &result);
-            emit duration(result);
+            mpv_get_property(mpv, "duration", MPV_FORMAT_DOUBLE, &_duration);
+            emit durationChanged(_duration);
             break;
             }
         case MPV_EVENT_TRACKS_CHANGED:
@@ -164,7 +171,8 @@ void AudioPlayer::handle_mpv_event(mpv_event *event)
             }
 
             if (name == "time-pos") {
-                emit progress(value);
+                emit progressChanged(value);
+                _progress = value;
             } else if (name == "volume") {
                 emit volumeChanged(value);
             }
