@@ -18,6 +18,10 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
 #include <QDebug>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QString>
 #include <mpv/qthelper.hpp>
 
 #include "audioplayer.h"
@@ -40,6 +44,7 @@ AudioPlayer::AudioPlayer(QObject *parent) : QObject(parent)
     // this property changes.
     mpv_observe_property(mpv, 0, "time-pos", MPV_FORMAT_DOUBLE);
     mpv_observe_property(mpv, 0, "volume", MPV_FORMAT_DOUBLE);
+    mpv_observe_property(mpv, 0, "metadata", MPV_FORMAT_NODE);
 
 
     // From this point on, the wakeup function will be called. The callback
@@ -170,9 +175,6 @@ void AudioPlayer::handle_mpv_event(mpv_event *event)
         case MPV_EVENT_AUDIO_RECONFIG:
             qDebug() << "audio reconfig";
             break;
-        case MPV_EVENT_METADATA_UPDATE:
-            qDebug() << "metadata update";
-            break;
         case MPV_EVENT_SEEK:
             qDebug() << "seek";
             break;
@@ -205,6 +207,25 @@ void AudioPlayer::handle_mpv_event(mpv_event *event)
                 _progress = value;
             } else if (name == "volume") {
                 emit volumeChanged(value);
+            } else if (name == "metadata") {
+                QString metadata_str = QString::fromLatin1(
+                            mpv_get_property_string(mpv, "metadata")
+                );
+
+                QJsonDocument json_data = QJsonDocument::fromJson(
+                            metadata_str.toUtf8()
+                );
+                QJsonObject jsonMetadata = json_data.object();
+                _metadata.clear();
+
+                for (int i = 0; i < jsonMetadata.keys().length(); i++) {
+                    QString key(jsonMetadata.keys().at(i));
+                    QJsonValue value = jsonMetadata.value(key);
+                    if (value.isString())
+                        _metadata.setMetadata(key, value.toString());
+                }
+            } else {
+                qDebug() << "unhandled prop change " << name;
             }
             break;
             }

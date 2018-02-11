@@ -24,6 +24,8 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include <QByteArray>
 #include <mpv/client.h>
 
+#include "metadata.h"
+
 class AudioPlayer : public QObject
 {
     Q_OBJECT
@@ -71,6 +73,7 @@ private:
     double _progress;
     States _state;
     void _setState(States);
+    Metadata _metadata;
 
 signals:
     void completed();
