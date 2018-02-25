@@ -72,6 +72,7 @@ QString md5sum(QString path) {
 }
 
 void LocalCollection::populate() {
+    qDebug() << "Scanning collection...";
     static const char * extensions[] = {
         ".mp3",
         ".opus",
@@ -99,13 +100,48 @@ void LocalCollection::populate() {
         if (!media)
             continue;
 
-        //FIXME skip the ones already in the db, checking also the last modified date
+         QSqlQuery query;
 
-        QSqlQuery query;
+        //Do not rescan scanned files
+        query.prepare ("SELECT timestamp FROM tracks WHERE path = :path");
+        query.bindValue(":path", i.filePath());
+        query.exec();
+        if (query.next()) {
+            qlonglong timestamp = query.value(0).toLongLong();
+            if (timestamp > i.fileInfo().lastModified().toSecsSinceEpoch()) {
+                // Not modified since last scan
+                continue;
+            } else {
+                // Modified since last scan
+                query.prepare("DELETE FROM tracks WHERE path = :path");
+                query.bindValue(":path", i.filePath());
+                query.exec();
+            }
+        }
+
+        //Deal with files with the same hash
+        QString hash = md5sum(i.filePath());
+        query.prepare ("SELECT path FROM tracks WHERE hash = :hash");
+        query.bindValue(":hash", hash);
+        query.exec();
+        if (query.next()) {
+            QFile f(query.value(0).toString());
+            if (! f.exists()) {
+                // File seems to have been moved, delete the old one
+                query.prepare("DELETE FROM tracks WHERE hash = :hash");
+                query.bindValue(":hash", hash);
+                query.exec();
+            } else {
+                // Just a duplicated file, skip
+                continue;
+            }
+        }
+
+        // Adding file to the collection
         query.prepare("INSERT INTO tracks (" INSERT_FIELDS ") VALUES (" INSERT_MAPPED_FIELDS ");");
 
         query.bindValue(":path", i.filePath());
-        query.bindValue(":hash", md5sum(i.filePath()));
+        query.bindValue(":hash", hash);
         query.bindValue(":timestamp", QDateTime::currentSecsSinceEpoch());
 
         TagLib::FileRef tags(i.filePath().toStdString().c_str());
@@ -127,6 +163,7 @@ void LocalCollection::populate() {
             qDebug() << "Path" << i.filePath();
         }
     }
+    qDebug() << "Scan completed";
 }
 
 LocalCollection::LocalCollection(QObject *parent) : QObject(parent)
