@@ -42,6 +42,10 @@ void LocalCollection::create_db() {
                "path TEXT PRIMARY KEY,"
                "hash TEXT UNIQUE,"
                "timestamp INTEGER,"
+               //Playback attributes
+               "score INTEGER DEFAULT 0,"
+               "counter INTEGER DEFAULT 0,"
+               "last_played INTEGER DEFAULT 0,"
                //Tags
                "cover TEXT,"
                "album TEXT,"
@@ -174,7 +178,4 @@ LocalCollection::LocalCollection(QObject *parent) : QObject(parent)
     db.open();
     create_db();
     populate();
-    if (! f.exists() || f.size() == 0) {
-
-    }
 }
