@@ -95,6 +95,7 @@ public slots:
     double progress();
     States state();
     void playpause();
+    Metadata* metadata();
 };
 
 #endif // AUDIOPLAYER_H

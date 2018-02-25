@@ -238,6 +238,10 @@ void AudioPlayer::handle_mpv_event(mpv_event *event)
     }
 }
 
+Metadata* AudioPlayer::metadata() {
+    return &_metadata;
+}
+
 // This slot is invoked by wakeup() (through the mpv_events signal).
 void AudioPlayer::on_mpv_events()
 {
