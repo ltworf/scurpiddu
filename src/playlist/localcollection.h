@@ -22,6 +22,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 
 #include <QObject>
 #include <QSqlDatabase>
+#include <QString>
 
 class LocalCollection : public QObject
 {
