@@ -32,7 +32,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #define INSERT_FIELDS "path, hash, title, album, artist, genre, track, date, comment, timestamp"
 #define INSERT_MAPPED_FIELDS ":path, :hash, :title, :album, :artist, :genre, :track, :date, :comment, :timestamp"
 #define DB_PATH "/tmp/scurpiddu.db" //FIXME put it somewhere where it makes sense
-#define MEDIA_PATH "/home/salvo/mp3/bassplaylist" //FIXME make this configurable
+#define MEDIA_PATH "/home/salvo/mp3/" //FIXME make this configurable
 
 void LocalCollection::create_db() {
     qDebug() << "Initializing db";
