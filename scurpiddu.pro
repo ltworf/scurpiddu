@@ -1,4 +1,4 @@
-QT += core gui widgets
+QT += core gui widgets sql
 
 TARGET = scurpiddu
 TEMPLATE = app
@@ -12,11 +12,13 @@ SOURCES += \
     src/audioplayer.cpp \
     src/mainwindow.cpp \
     main.cpp \
-    src/metadata.cpp
+    src/metadata.cpp \
+    src/playlist/localcollection.cpp
 HEADERS += \
     src/audioplayer.h \
     src/mainwindow.h \
-    src/metadata.h
+    src/metadata.h \
+    src/playlist/localcollection.h
 
 FORMS += \
     ui/mainwindow.ui
