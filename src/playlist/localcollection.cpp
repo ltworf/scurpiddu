@@ -85,6 +85,9 @@ void LocalCollection::populate() {
         ".flac",
     };
 
+    int inscounter = 0;
+    int delcounter = 0;
+
     QDirIterator i(MEDIA_PATH, QDir::NoFilter, QDirIterator::Subdirectories);
     while (i.hasNext()) {
         i.next();
@@ -97,7 +100,7 @@ void LocalCollection::populate() {
         //Skip non allowed extensions
         bool media = false;
         for (unsigned int j=0;j<sizeof(extensions)/sizeof(int*); j++) {
-            if (i.fileName().endsWith(extensions[j])) {
+            if (i.fileName().toLower().endsWith(extensions[j])) {
                 media = true;
             }
         }
@@ -120,6 +123,7 @@ void LocalCollection::populate() {
                 query.prepare("DELETE FROM tracks WHERE path = :path");
                 query.bindValue(":path", i.filePath());
                 query.exec();
+                delcounter++;
             }
         }
 
@@ -135,6 +139,7 @@ void LocalCollection::populate() {
                 query.prepare("DELETE FROM tracks WHERE hash = :hash");
                 query.bindValue(":hash", hash);
                 query.exec();
+                delcounter++;
             } else {
                 // Just a duplicated file, skip
                 continue;
@@ -165,9 +170,10 @@ void LocalCollection::populate() {
             qDebug() << "Last query" << query.lastQuery();
             qDebug() << "Last values" << query.boundValues() ;
             qDebug() << "Path" << i.filePath();
-        }
+        } else
+            inscounter++;
     }
-    qDebug() << "Scan completed";
+    qDebug() << "Scan completed." << inscounter << "insertions," << delcounter << "removals";
 }
 
 LocalCollection::LocalCollection(QObject *parent) : QObject(parent)
