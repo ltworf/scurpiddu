@@ -77,11 +77,12 @@ private:
 
 signals:
     void completed();
-    void durationChanged(double);
-    void progressChanged(double);
+    void durationChanged(double duration);
+    void progressChanged(double progress);
     void _mpv_events();
     void volumeChanged(double);
     void stateChanged(States);
+    void metadataChanged(QString key, QString value);
 
 private slots:
     void on_mpv_events();

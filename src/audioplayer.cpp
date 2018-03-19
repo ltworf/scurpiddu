@@ -221,8 +221,11 @@ void AudioPlayer::handle_mpv_event(mpv_event *event)
                 for (int i = 0; i < jsonMetadata.keys().length(); i++) {
                     QString key(jsonMetadata.keys().at(i));
                     QJsonValue value = jsonMetadata.value(key);
-                    if (value.isString())
+                    if (value.isString()) {
                         _metadata.setMetadata(key, value.toString());
+                        emit metadataChanged(key, value.toString());
+                    }
+
                 }
             } else {
                 qDebug() << "unhandled prop change " << name;
