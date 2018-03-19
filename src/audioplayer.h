@@ -96,6 +96,7 @@ public slots:
     double progress();
     States state();
     void playpause();
+    void stop();
     Metadata* metadata();
 };
 

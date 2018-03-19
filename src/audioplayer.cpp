@@ -120,6 +120,12 @@ void AudioPlayer::playpause() {
     _setState((AudioPlayer::States)((int)_state * -1));
 }
 
+void AudioPlayer::stop() {
+    _setState(AudioPlayer::States::STOPPED);
+    const char *args[] = {"stop", NULL};
+    mpv_command_async(mpv, 0, args);
+}
+
 void AudioPlayer::handle_mpv_event(mpv_event *event)
 {
     mpv_event_property *prop = (mpv_event_property *)event->data;
