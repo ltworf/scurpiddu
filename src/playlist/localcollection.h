@@ -24,6 +24,8 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include <QSqlDatabase>
 #include <QString>
 
+#include "filter.h"
+
 class LocalCollection : public QObject
 {
     Q_OBJECT
@@ -33,6 +35,7 @@ public:
 signals:
 
 public slots:
+    void filter(Filter *);
 
 private:
     QSqlDatabase db;

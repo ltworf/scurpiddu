@@ -27,7 +27,7 @@ class RandomFilter: public Filter
 {
 public:
     RandomFilter(unsigned int limit);
-    virtual QSqlQuery getQuery();
+    virtual void prepare(QSqlQuery*);
 private:
     unsigned int limit;
 };

@@ -185,3 +185,14 @@ LocalCollection::LocalCollection(QObject *parent) : QObject(parent)
     create_db();
     populate();
 }
+
+
+void LocalCollection::filter(Filter *f) {
+    QSqlQuery query;
+    query.setForwardOnly(true);
+    f->prepare(&query);
+    query.exec();
+    while (query.next()) {
+        qDebug() << "canzone"<< query.value("title") << " " << query.value("artist");
+    }
+}

@@ -27,7 +27,7 @@ class Filter : public QObject
 {
     Q_OBJECT
 public:
-    virtual QSqlQuery getQuery() = 0;
+    virtual void prepare(QSqlQuery*) = 0;
 };
 
 #endif // FILTER_H

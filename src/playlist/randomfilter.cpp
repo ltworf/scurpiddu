@@ -19,15 +19,14 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 
 #include <QVariant>
 
+
 #include "randomfilter.h"
 
 RandomFilter::RandomFilter(unsigned int limit) {
     this->limit = limit;
 }
 
-QSqlQuery RandomFilter::getQuery() {
-    QSqlQuery query;
-    query.prepare ("SELECT * FROM table ORDER BY RANDOM() LIMIT :limit;");
-    query.bindValue(":limit", QVariant(this->limit));
-    return query;
+void RandomFilter::prepare(QSqlQuery *query) {
+    query->prepare ("SELECT * FROM tracks ORDER BY RANDOM() LIMIT :limit;");
+    query->bindValue(":limit", this->limit);
 }
