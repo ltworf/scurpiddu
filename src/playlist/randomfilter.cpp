@@ -17,17 +17,17 @@ along with Scurpiddu. If not, see <http://www.gnu.org/licenses/>.
 Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
-#ifndef FILTER_H
-#define FILTER_H
+#include <QVariant>
 
-#include <QObject>
-#include <QSqlQuery>
+#include "randomfilter.h"
 
-class Filter : public QObject
-{
-    Q_OBJECT
-public:
-    virtual QSqlQuery getQuery() = 0;
-};
+RandomFilter::RandomFilter(unsigned int limit) {
+    this->limit = limit;
+}
 
-#endif // FILTER_H
+QSqlQuery RandomFilter::getQuery() {
+    QSqlQuery query;
+    query.prepare ("SELECT * FROM table ORDER BY RANDOM() LIMIT :limit;");
+    query.bindValue(":limit", QVariant(this->limit));
+    return query;
+}

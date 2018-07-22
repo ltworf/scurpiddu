@@ -13,13 +13,15 @@ SOURCES += \
     src/mainwindow.cpp \
     main.cpp \
     src/metadata.cpp \
-    src/playlist/localcollection.cpp
+    src/playlist/localcollection.cpp \
+    src/playlist/randomfilter.cpp
 HEADERS += \
     src/audioplayer.h \
     src/mainwindow.h \
     src/metadata.h \
     src/playlist/localcollection.h \
-    src/playlist/filter.h
+    src/playlist/filter.h \
+    src/playlist/randomfilter.h
 
 FORMS += \
     ui/mainwindow.ui

@@ -17,17 +17,19 @@ along with Scurpiddu. If not, see <http://www.gnu.org/licenses/>.
 Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
-#ifndef FILTER_H
-#define FILTER_H
+#ifndef RANDOMFILTER_H
+#define RANDOMFILTER_H
 
-#include <QObject>
-#include <QSqlQuery>
+#include "filter.h"
 
-class Filter : public QObject
+
+class RandomFilter: public Filter
 {
-    Q_OBJECT
 public:
-    virtual QSqlQuery getQuery() = 0;
+    RandomFilter(unsigned int limit);
+    virtual QSqlQuery getQuery();
+private:
+    unsigned int limit;
 };
 
-#endif // FILTER_H
+#endif // RANDOMFILTER_H
