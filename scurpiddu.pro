@@ -18,7 +18,8 @@ HEADERS += \
     src/audioplayer.h \
     src/mainwindow.h \
     src/metadata.h \
-    src/playlist/localcollection.h
+    src/playlist/localcollection.h \
+    src/playlist/filter.h
 
 FORMS += \
     ui/mainwindow.ui
