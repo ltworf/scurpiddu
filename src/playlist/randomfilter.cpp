@@ -19,7 +19,6 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 
 #include <QVariant>
 
-
 #include "randomfilter.h"
 
 RandomFilter::RandomFilter(unsigned int limit) {

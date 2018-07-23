@@ -23,8 +23,10 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include <QObject>
 #include <QSqlDatabase>
 #include <QString>
+#include <QList>
 
 #include "filter.h"
+#include "playlistitem.h"
 
 class LocalCollection : public QObject
 {
@@ -35,7 +37,7 @@ public:
 signals:
 
 public slots:
-    void filter(Filter *);
+    QList<PlaylistItem *> filter(Filter *);
 
 private:
     QSqlDatabase db;

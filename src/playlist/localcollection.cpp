@@ -186,13 +186,42 @@ LocalCollection::LocalCollection(QObject *parent) : QObject(parent)
     populate();
 }
 
-
-void LocalCollection::filter(Filter *f) {
+/**
+ * @brief LocalCollection::filter
+ * @param f
+ * @return a list of items.
+ *
+ * The items must all be freed separately from the list.
+ */
+QList<PlaylistItem*> LocalCollection::filter(Filter *f) {
+    QList<PlaylistItem*> r;
     QSqlQuery query;
     query.setForwardOnly(true);
     f->prepare(&query);
     query.exec();
     while (query.next()) {
-        qDebug() << "canzone"<< query.value("title") << " " << query.value("artist");
+        PlaylistItem* item = new PlaylistItem(
+                    this,
+                    query.value("path").toString(),
+                    true,
+                    &this->db
+        );
+        item->setScore(query.value("score").toInt());
+        item->setCounter(query.value("counter").toInt());
+        item->setLast_played(query.value("last_played").toInt());
+        item->setCover(query.value("cover").toString());
+        item->setAlbum(query.value("album").toString());
+        item->setAlbum_artist(query.value("album_artist").toString());
+        item->setArtist(query.value("artist").toString());
+        item->setComment(query.value("comment").toString());
+        item->setDate(query.value("date").toString());
+        item->setDisc(query.value("disc").toString());
+        item->setGenre(query.value("genre").toString());
+        item->setPublisher(query.value("publisher").toString());
+        item->setTitle(query.value("title").toString());
+        item->setTrack(query.value("track").toString());
+        item->initialised();
+        r.append(item);
     }
+    return r;
 }
