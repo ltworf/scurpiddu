@@ -23,6 +23,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include <QMainWindow>
 
 #include "audioplayer.h"
+#include "src/playlist/localcollection.h"
 
 namespace Ui {
 class MainWindow;
@@ -39,6 +40,7 @@ public:
 private:
     Ui::MainWindow *ui;
     AudioPlayer player;
+    LocalCollection localcollection;
 };
 
 #endif // MAINWINDOW_H
