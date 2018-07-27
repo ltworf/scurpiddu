@@ -22,6 +22,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "playlist/randomfilter.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -64,6 +65,9 @@ MainWindow::MainWindow(QWidget *parent) :
                 &player,
                 &AudioPlayer::playpause
     );
+    RandomFilter f(12);
+    playlist.setPlaylist(localcollection.filter(&f));
+    ui->playlistView->setModel(&playlist);
 }
 
 MainWindow::~MainWindow()
