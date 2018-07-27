@@ -23,15 +23,16 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include <QDateTime>
 #include <QDebug>
 #include <QDirIterator>
+#include <QDir>
 #include <QFile>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QStandardPaths>
 #include <taglib/fileref.h>
 
 
 #define INSERT_FIELDS "path, hash, title, album, artist, genre, track, date, comment, timestamp"
 #define INSERT_MAPPED_FIELDS ":path, :hash, :title, :album, :artist, :genre, :track, :date, :comment, :timestamp"
-#define DB_PATH "/tmp/scurpiddu.db" //FIXME put it somewhere where it makes sense
 #define MEDIA_PATH "/home/salvo/mp3/" //FIXME make this configurable
 
 void LocalCollection::create_db() {
@@ -178,9 +179,13 @@ void LocalCollection::populate() {
 
 LocalCollection::LocalCollection(QObject *parent) : QObject(parent)
 {
-    QFile f(DB_PATH);
+    QDir cachedir(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
+    cachedir.mkdir(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
+
+    QString dbpath = QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/scurpiddu.db";
+    qDebug() << "path" << dbpath;
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(DB_PATH);
+    db.setDatabaseName(dbpath);
     db.open();
     create_db();
     populate();
