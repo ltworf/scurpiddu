@@ -18,6 +18,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
 #include <QDebug>
+#include <QPushButton>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -38,14 +39,14 @@ MainWindow::MainWindow(QWidget *parent) :
     // Seek bar
     connect(
                 &player,
-                &AudioPlayer::duration,
+                &AudioPlayer::durationChanged,
                 ui->seekBar,
                 &QAbstractSlider::setMaximum
     );
 
     connect(
                 &player,
-                &AudioPlayer::progress,
+                &AudioPlayer::progressChanged,
                 ui->seekBar,
                 &QAbstractSlider::setValue
     );
@@ -57,6 +58,12 @@ MainWindow::MainWindow(QWidget *parent) :
                 &AudioPlayer::seek
     );
 
+    connect(
+                ui->cmdPlayPause,
+                &QPushButton::clicked,
+                &player,
+                &AudioPlayer::playpause
+    );
 }
 
 MainWindow::~MainWindow()
