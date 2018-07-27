@@ -21,9 +21,11 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QModelIndex>
 
 #include "audioplayer.h"
-#include "src/playlist/localcollection.h"
+#include "playlist/localcollection.h"
+#include "playlist/playlist.h"
 
 namespace Ui {
 class MainWindow;
@@ -36,11 +38,14 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+public slots:
+    void playlistSelect(QModelIndex);
 
 private:
     Ui::MainWindow *ui;
     AudioPlayer player;
     LocalCollection localcollection;
+    Playlist playlist;
 };
 
 #endif // MAINWINDOW_H

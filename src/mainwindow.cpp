@@ -74,3 +74,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::playlistSelect(QModelIndex i) {
+    player.open(playlist.getItem(i)->path().toUtf8());
+}
