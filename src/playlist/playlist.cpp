@@ -29,7 +29,6 @@ Playlist::Playlist(QObject *parent): QAbstractListModel(parent)
 }
 
 int Playlist::rowCount(const QModelIndex &parent) const {
-    qDebug() << "count asked" << playlist.size() << parent;;
     return playlist.size();
 }
 
@@ -45,10 +44,8 @@ QVariant Playlist::data(const QModelIndex &index, int role) const {
     case Qt::DecorationRole:
         //TODO if (item->cover().size()) {}
     default:
-        qDebug() << "unknown role" << role;
-        break;
+        return QVariant();
     }
-    return QVariant();
 }
 
 void Playlist::setPlaylist(QList<PlaylistItem *> l) {
@@ -59,4 +56,8 @@ void Playlist::setPlaylist(QList<PlaylistItem *> l) {
         this->createIndex(0, 0),
         this->createIndex(l.size() - 1, 0)
     );
+}
+
+PlaylistItem* Playlist::getItem(QModelIndex i) {
+    return playlist[i.row()];
 }
