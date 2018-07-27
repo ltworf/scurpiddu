@@ -11,64 +11,87 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Scurpiddu</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QDial" name="volume">
-    <property name="geometry">
-     <rect>
-      <x>520</x>
-      <y>140</y>
-      <width>50</width>
-      <height>64</height>
-     </rect>
-    </property>
-    <property name="maximum">
-     <number>100</number>
-    </property>
-   </widget>
-   <widget class="QSlider" name="seekBar">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>160</y>
-      <width>231</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="mouseTracking">
-     <bool>false</bool>
-    </property>
-    <property name="tracking">
-     <bool>false</bool>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="cmdPlayPause">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>60</y>
-      <width>191</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>PushButton</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>../../../../../usr/share/icons/oxygen/base/48x48/actions/media-playback-pause.png</normaloff>../../../../../usr/share/icons/oxygen/base/48x48/actions/media-playback-pause.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>48</width>
-      <height>48</height>
-     </size>
-    </property>
-   </widget>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>PushButton</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="cmdPlayPause">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>../../../../../usr/share/icons/oxygen/base/48x48/actions/media-playback-pause.png</normaloff>../../../../../usr/share/icons/oxygen/base/48x48/actions/media-playback-pause.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>48</width>
+              <height>48</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="text">
+             <string>PushButton</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QSlider" name="seekBar">
+          <property name="mouseTracking">
+           <bool>false</bool>
+          </property>
+          <property name="tracking">
+           <bool>false</bool>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QDial" name="volume">
+        <property name="maximum">
+         <number>100</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QListView" name="playlistView">
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::ExtendedSelection</enum>
+      </property>
+      <property name="uniformItemSizes">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -83,5 +106,41 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>playlistView</sender>
+   <signal>entered(QModelIndex)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>playlistSelect(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>349</x>
+     <y>204</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>416</x>
+     <y>134</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>playlistView</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>playlistSelect(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>325</x>
+     <y>264</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>294</x>
+     <y>133</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>playlistSelect(QModelIndex)</slot>
+ </slots>
 </ui>
