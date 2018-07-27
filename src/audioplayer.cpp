@@ -32,7 +32,7 @@ static void wakeup(void *mpv)
     emit mainwindow->_mpv_events();
 }
 
-AudioPlayer::AudioPlayer(QObject *parent) : QObject(parent)
+AudioPlayer::AudioPlayer(QOpenGLWidget* vo, QObject* parent) : QObject(parent)
 {
     std::setlocale(LC_NUMERIC, "C");
 
@@ -53,6 +53,12 @@ AudioPlayer::AudioPlayer(QObject *parent) : QObject(parent)
     connect(this, &AudioPlayer::_mpv_events, this, &AudioPlayer::on_mpv_events,
             Qt::QueuedConnection);
     mpv_set_wakeup_callback(mpv, wakeup, this);
+
+    if (vo) {
+        //TODO https://github.com/mpv-player/mpv-examples/blob/master/libmpv/qt_opengl/mpvwidget.cpp
+    } else {
+        mpv_set_option_string(mpv, "vo", "null");
+    }
 
     if (mpv_initialize(mpv) < 0)
         throw std::runtime_error("mpv failed to initialize");

@@ -22,6 +22,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 
 #include <QObject>
 #include <QByteArray>
+#include <QOpenGLWidget>
 #include <mpv/client.h>
 
 #include "metadata.h"
@@ -30,7 +31,7 @@ class AudioPlayer : public QObject
 {
     Q_OBJECT
 public:
-    AudioPlayer(QObject *parent = 0);
+    AudioPlayer(QOpenGLWidget* vo = NULL, QObject* parent = 0);
     ~AudioPlayer();
 
     enum States {
@@ -74,6 +75,7 @@ private:
     States _state;
     void _setState(States);
     Metadata _metadata;
+    QOpenGLWidget* vo;
 
 signals:
     void completed();
