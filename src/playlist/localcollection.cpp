@@ -33,7 +33,6 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 
 #define INSERT_FIELDS "path, hash, title, album, artist, genre, track, date, comment, timestamp"
 #define INSERT_MAPPED_FIELDS ":path, :hash, :title, :album, :artist, :genre, :track, :date, :comment, :timestamp"
-#define MEDIA_PATH "/home/salvo/mp3/" //FIXME make this configurable
 
 void LocalCollection::create_db() {
     qDebug() << "Initializing db";
@@ -77,7 +76,6 @@ QString md5sum(QString path) {
 }
 
 void LocalCollection::populate() {
-    qDebug() << "Scanning collection...";
     static const char * extensions[] = {
         ".mp3",
         ".opus",
@@ -89,7 +87,14 @@ void LocalCollection::populate() {
     int inscounter = 0;
     int delcounter = 0;
 
-    QDirIterator i(MEDIA_PATH, QDir::NoFilter, QDirIterator::Subdirectories);
+    QStringList mediapaths = QStandardPaths::standardLocations(QStandardPaths::MusicLocation);
+    if (mediapaths.length() == 0) {
+        qDebug() << "No music directory available";
+        return;
+    }
+    qDebug() << "Scanning directory" << mediapaths[0];
+
+    QDirIterator i(mediapaths[0], QDir::NoFilter, QDirIterator::Subdirectories);
     while (i.hasNext()) {
         i.next();
 
