@@ -19,6 +19,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 
 #include <QDebug>
 #include <QPushButton>
+#include <QIcon>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -68,6 +69,13 @@ MainWindow::MainWindow(QWidget *parent) :
                 &AudioPlayer::playpause
     );
 
+    connect(
+                &player,
+                &AudioPlayer::stateChanged,
+                this,
+                &MainWindow::player_status_changed
+    );
+
     // Next on track completed
     connect(
                 &player,
@@ -106,6 +114,18 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::player_status_changed(AudioPlayer::States newstate) {
+    switch (newstate) {
+        case  AudioPlayer::States::PLAYING:
+            ui->cmdPlayPause->setIcon(QIcon::fromTheme("media-playback-pause"));
+            break;
+        case  AudioPlayer::States::PAUSED:
+        case  AudioPlayer::States::STOPPED:
+            ui->cmdPlayPause->setIcon(QIcon::fromTheme("media-playback-start"));
+            break;
+    }
 }
 
 void MainWindow::playlistSelect(QModelIndex i) {

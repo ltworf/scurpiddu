@@ -41,6 +41,7 @@ public slots:
     void playlistSelect(QModelIndex);
     void nextTrack();
     void previousTrack();
+    void player_status_changed(AudioPlayer::States);
 
 private:
     Ui::MainWindow *ui;
