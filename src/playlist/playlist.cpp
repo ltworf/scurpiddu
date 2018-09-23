@@ -19,6 +19,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 
 #include "playlist.h"
 
+#include <QBrush>
 #include <QDateTime>
 #include <QSize>
 #include <algorithm>
@@ -41,11 +42,18 @@ QVariant Playlist::data(const QModelIndex &index, int role) const {
     case Qt::ToolTipRole: {
         return item->artist() + " - " + item->title();
     }
-    case Qt::DecorationRole:
-        //TODO if (item->cover().size()) {}
+    case Qt::BackgroundRole:
+        if (index.row() == _playing)
+            return QBrush(Qt::darkRed, Qt::Dense4Pattern);
+        break;
+    case Qt::ForegroundRole:
+        if (index.row() == _playing)
+            return QBrush(Qt::white);
+        break;
     default:
-        return QVariant();
+        ;
     }
+    return QVariant();
 }
 
 void Playlist::setPlaylist(QList<PlaylistItem *> l) {
@@ -69,6 +77,10 @@ void Playlist::appendPlaylist(QList<PlaylistItem*> l) {
 }
 
 PlaylistItem* Playlist::playing_int(int i) {
+    emit this->dataChanged(
+        this->createIndex(_playing, 0),
+        this->createIndex(_playing - 1, 0)
+    );
     _playing = i;
     if (i == -1) {
         return NULL;
@@ -76,6 +88,10 @@ PlaylistItem* Playlist::playing_int(int i) {
     PlaylistItem* item = playlist[i];
     item->setCounter(item->counter() + 1);
     item->setLast_played(QDateTime().toSecsSinceEpoch());
+    emit this->dataChanged(
+        this->createIndex(_playing, 0),
+        this->createIndex(_playing - 1, 0)
+    );
     return item;
 }
 
