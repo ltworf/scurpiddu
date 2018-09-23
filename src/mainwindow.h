@@ -24,7 +24,6 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include <QModelIndex>
 
 #include "audioplayer.h"
-#include "playlist/localcollection.h"
 #include "playlist/playlist.h"
 
 namespace Ui {
@@ -42,11 +41,11 @@ public slots:
     void playlistSelect(QModelIndex);
     void nextTrack();
     void previousTrack();
+    void createPlaylist(QList<PlaylistItem*>);
 
 private:
     Ui::MainWindow *ui;
     AudioPlayer player;
-    LocalCollection localcollection;
     Playlist playlist;
 };
 

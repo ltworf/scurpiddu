@@ -22,7 +22,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "playlist/randomfilter.h"
+#include "playlist/playlistcreator.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // Volume
     connect(
                 ui->volume,
                 &QAbstractSlider::valueChanged,
@@ -59,6 +60,7 @@ MainWindow::MainWindow(QWidget *parent) :
                 &AudioPlayer::seek
     );
 
+    // Play/pause
     connect(
                 ui->cmdPlayPause,
                 &QPushButton::clicked,
@@ -66,6 +68,7 @@ MainWindow::MainWindow(QWidget *parent) :
                 &AudioPlayer::playpause
     );
 
+    // Next on track completed
     connect(
                 &player,
                 &AudioPlayer::completed,
@@ -73,9 +76,26 @@ MainWindow::MainWindow(QWidget *parent) :
                 &MainWindow::nextTrack
     );
 
-    RandomFilter f(12);
-    playlist.setPlaylist(localcollection.filter(&f));
+    // Append playlists from creator
+//    connect(
+//                ui->playlistCreator,
+//                &PlaylistCreator::appendPlaylist,
+//                this->playlist,
+//                &Playlist::appendPlaylist
+//    );
+    connect(
+                ui->playlistCreator,
+                &PlaylistCreator::appendPlaylist,
+                this,
+                &MainWindow::createPlaylist
+    );
+
+    // Associate model & view
     ui->playlistView->setModel(&playlist);
+}
+
+void MainWindow::createPlaylist(QList<PlaylistItem *> l) {
+    this->playlist.appendPlaylist(l);
 }
 
 MainWindow::~MainWindow()

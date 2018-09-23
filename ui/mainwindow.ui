@@ -6,113 +6,123 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>578</width>
+    <height>554</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Scurpiddu</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <widget class="PlaylistCreator" name="playlistCreator" native="true"/>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
+         <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <widget class="QPushButton" name="cmdPrevious">
-            <property name="toolTip">
-             <string>Previous track</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset theme="media-skip-backward"/>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>48</width>
-              <height>48</height>
-             </size>
-            </property>
-           </widget>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QPushButton" name="cmdPrevious">
+              <property name="toolTip">
+               <string>Previous track</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset theme="media-skip-backward">
+                <normaloff>.</normaloff>.</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>48</width>
+                <height>48</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="cmdPlayPause">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset theme="media-playback-pause">
+                <normaloff>.</normaloff>.</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>48</width>
+                <height>48</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="cmdNext">
+              <property name="toolTip">
+               <string>Next track</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset theme="media-skip-forward">
+                <normaloff>.</normaloff>.</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>48</width>
+                <height>48</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
-           <widget class="QPushButton" name="cmdPlayPause">
-            <property name="text">
-             <string/>
+           <widget class="QSlider" name="seekBar">
+            <property name="mouseTracking">
+             <bool>false</bool>
             </property>
-            <property name="icon">
-             <iconset theme="media-playback-pause"/>
+            <property name="tracking">
+             <bool>false</bool>
             </property>
-            <property name="iconSize">
-             <size>
-              <width>48</width>
-              <height>48</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="cmdNext">
-            <property name="toolTip">
-             <string>Next track</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset theme="media-skip-forward"/>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>48</width>
-              <height>48</height>
-             </size>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
          </layout>
         </item>
         <item>
-         <widget class="QSlider" name="seekBar">
-          <property name="mouseTracking">
-           <bool>false</bool>
-          </property>
-          <property name="tracking">
-           <bool>false</bool>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+         <widget class="QDial" name="volume">
+          <property name="maximum">
+           <number>100</number>
           </property>
          </widget>
         </item>
        </layout>
       </item>
       <item>
-       <widget class="QDial" name="volume">
-        <property name="maximum">
-         <number>100</number>
+       <widget class="QListView" name="playlistView">
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
+        </property>
+        <property name="uniformItemSizes">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
      </layout>
-    </item>
-    <item>
-     <widget class="QListView" name="playlistView">
-      <property name="alternatingRowColors">
-       <bool>true</bool>
-      </property>
-      <property name="selectionMode">
-       <enum>QAbstractItemView::ExtendedSelection</enum>
-      </property>
-      <property name="uniformItemSizes">
-       <bool>true</bool>
-      </property>
-     </widget>
     </item>
    </layout>
   </widget>
@@ -121,13 +131,21 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>578</width>
      <height>27</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PlaylistCreator</class>
+   <extends>QWidget</extends>
+   <header>src/playlist/playlistcreator.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
