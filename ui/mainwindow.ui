@@ -132,22 +132,6 @@
  <connections>
   <connection>
    <sender>playlistView</sender>
-   <signal>entered(QModelIndex)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>playlistSelect(QModelIndex)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>349</x>
-     <y>204</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>416</x>
-     <y>134</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>playlistView</sender>
    <signal>doubleClicked(QModelIndex)</signal>
    <receiver>MainWindow</receiver>
    <slot>playlistSelect(QModelIndex)</slot>
