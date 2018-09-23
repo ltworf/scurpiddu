@@ -42,6 +42,7 @@ public slots:
     void random();
     void counter();
     void lastPlayed();
+    void search();
 signals:
     void appendPlaylist(QList<PlaylistItem*>);
 

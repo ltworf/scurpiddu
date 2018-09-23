@@ -23,6 +23,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include "randomfilter.h"
 #include "lastplayedfilter.h"
 #include "counterfilter.h"
+#include "searchfilter.h"
 
 PlaylistCreator::PlaylistCreator(QWidget *parent) :
     QWidget(parent),
@@ -50,3 +51,9 @@ void PlaylistCreator::lastPlayed() {
     LastPlayedFilter f(ui->spinLimit->value(), ui->checkDesc->checkState());
     emit appendPlaylist(localcollection.filter(&f));
 }
+
+void PlaylistCreator::search() {
+    SearchFilter f(ui->spinLimit->value(), this->ui->txtSearch->text());
+    emit appendPlaylist(localcollection.filter(&f));
+}
+
