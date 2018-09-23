@@ -60,6 +60,15 @@ void Playlist::setPlaylist(QList<PlaylistItem *> l) {
     _playing = -1;
 }
 
+void Playlist::appendPlaylist(QList<PlaylistItem*> l) {
+    int initial_size = playlist.size();
+    playlist += l;
+    emit this->dataChanged(
+        this->createIndex(initial_size, 0),
+        this->createIndex(l.size() - 1, 0)
+    );
+}
+
 PlaylistItem* Playlist::playing_int(int i) {
     _playing = i;
     if (i == -1) {
