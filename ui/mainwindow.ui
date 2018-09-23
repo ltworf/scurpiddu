@@ -22,20 +22,15 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <widget class="QPushButton" name="pushButton">
-            <property name="text">
-             <string>PushButton</string>
+           <widget class="QPushButton" name="cmdPrevious">
+            <property name="toolTip">
+             <string>Previous track</string>
             </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="cmdPlayPause">
             <property name="text">
              <string/>
             </property>
             <property name="icon">
-             <iconset>
-              <normaloff>../../../../../usr/share/icons/oxygen/base/48x48/actions/media-playback-pause.png</normaloff>../../../../../usr/share/icons/oxygen/base/48x48/actions/media-playback-pause.png</iconset>
+             <iconset theme="media-skip-backward"/>
             </property>
             <property name="iconSize">
              <size>
@@ -46,9 +41,37 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="cmdPlayPause">
             <property name="text">
-             <string>PushButton</string>
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset theme="media-playback-pause"/>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>48</width>
+              <height>48</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="cmdNext">
+            <property name="toolTip">
+             <string>Next track</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset theme="media-skip-forward"/>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>48</width>
+              <height>48</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -139,8 +162,42 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>cmdNext</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>nextTrack()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>574</x>
+     <y>69</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmdPrevious</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>previousTrack()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>119</x>
+     <y>69</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>playlistSelect(QModelIndex)</slot>
+  <slot>nextTrack()</slot>
+  <slot>previousTrack()</slot>
  </slots>
 </ui>
