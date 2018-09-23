@@ -14,188 +14,191 @@
    <string>Scurpiddu</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_4">
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
     <item>
-     <widget class="PlaylistCreator" name="playlistCreator" native="true"/>
+     <widget class="QListView" name="playlistView">
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::ExtendedSelection</enum>
+      </property>
+      <property name="uniformItemSizes">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout">
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <widget class="QPushButton" name="cmdPrevious">
-              <property name="toolTip">
-               <string>Previous track</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset theme="media-skip-backward">
-                <normaloff>.</normaloff>.</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>48</width>
-                <height>48</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="cmdPlayPause">
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset theme="media-playback-start">
-                <normaloff>.</normaloff>.</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>48</width>
-                <height>48</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="cmdNext">
-              <property name="toolTip">
-               <string>Next track</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset theme="media-skip-forward">
-                <normaloff>.</normaloff>.</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>48</width>
-                <height>48</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="QSlider" name="seekBar">
-            <property name="mouseTracking">
-             <bool>false</bool>
-            </property>
-            <property name="tracking">
-             <bool>false</bool>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QDial" name="volume">
-          <property name="maximum">
-           <number>100</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QListView" name="playlistView">
-          <property name="alternatingRowColors">
-           <bool>true</bool>
-          </property>
-          <property name="selectionMode">
-           <enum>QAbstractItemView::ExtendedSelection</enum>
-          </property>
-          <property name="uniformItemSizes">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
-          <item>
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="cmdShufflePlaylist">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset theme="shuffle"/>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>24</width>
-              <height>24</height>
-             </size>
-            </property>
-            <property name="flat">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="cmdClearPlaylist">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset theme="edit-clear"/>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>24</width>
-              <height>24</height>
-             </size>
-            </property>
-            <property name="flat">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
+       <widget class="QPushButton" name="cmdShufflePlaylist">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset theme="shuffle">
+          <normaloff>.</normaloff>.</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="cmdClearPlaylist">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset theme="edit-clear">
+          <normaloff>.</normaloff>.</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>578</width>
-     <height>27</height>
-    </rect>
+  <widget class="QDockWidget" name="dockWidget">
+   <property name="windowTitle">
+    <string>Playlist creator</string>
    </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="PlaylistCreator" name="playlistCreator" native="true"/>
+     </item>
+    </layout>
+   </widget>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QDockWidget" name="dockWidget_3">
+   <property name="windowTitle">
+    <string>Player control</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>4</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_3">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="cmdPrevious">
+           <property name="toolTip">
+            <string>Previous track</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset theme="media-skip-backward">
+             <normaloff>.</normaloff>.</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>48</width>
+             <height>48</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="cmdPlayPause">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset theme="media-playback-start">
+             <normaloff>.</normaloff>.</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>48</width>
+             <height>48</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="cmdNext">
+           <property name="toolTip">
+            <string>Next track</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset theme="media-skip-forward">
+             <normaloff>.</normaloff>.</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>48</width>
+             <height>48</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QSlider" name="seekBar">
+         <property name="mouseTracking">
+          <bool>false</bool>
+         </property>
+         <property name="tracking">
+          <bool>false</bool>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QDial" name="volume">
+       <property name="maximum">
+        <number>100</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
  </widget>
  <customwidgets>
   <customwidget>
