@@ -192,7 +192,6 @@ void AudioPlayer::handle_mpv_event(mpv_event *event)
             qDebug() << "audio reconfig";
             break;
         case MPV_EVENT_SEEK:
-            qDebug() << "seek";
             break;
         case MPV_EVENT_PLAYBACK_RESTART:
             qDebug() << "playing";

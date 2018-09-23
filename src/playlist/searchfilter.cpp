@@ -20,7 +20,6 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include <QVariant>
 
 #include "searchfilter.h"
-#include <QDebug>
 
 SearchFilter::SearchFilter(unsigned int limit, QString query) {
     this->limit = limit;
@@ -29,9 +28,6 @@ SearchFilter::SearchFilter(unsigned int limit, QString query) {
 
 void SearchFilter::prepare(QSqlQuery *query) {
     QString searched = "%" + this->query + "%";
-    qDebug() << "Search" << searched;
-
-    //select * from tracks where path LIKE "%Avril%";
     query->prepare ("SELECT * "
                     "FROM tracks  "
                     "WHERE "
