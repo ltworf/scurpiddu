@@ -42,6 +42,8 @@ public slots:
     PlaylistItem* playing(QModelIndex);
     PlaylistItem* next();
     PlaylistItem* previous();
+    void clear();
+    void shuffle();
 
 private:
     int _playing = -1;

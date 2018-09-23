@@ -23,6 +23,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include <QDateTime>
 #include <QDebug>
 #include <QSize>
+#include <algorithm>
 
 Playlist::Playlist(QObject *parent): QAbstractListModel(parent)
 {
@@ -106,4 +107,17 @@ PlaylistItem* Playlist::previous() {
         now_playing = _playing - 1;
     }
     return playing_int(now_playing);
+}
+
+void Playlist::clear() {
+    QList<PlaylistItem*> l;
+    setPlaylist(l);
+}
+
+void Playlist::shuffle() {
+    std::random_shuffle(playlist.begin(), playlist.end());
+    emit this->dataChanged(
+        this->createIndex(0, 0),
+        this->createIndex(playlist.size() - 1, 0)
+    );
 }
