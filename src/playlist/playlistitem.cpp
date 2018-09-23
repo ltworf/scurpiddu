@@ -107,12 +107,11 @@ QString PlaylistItem::track() {
 void PlaylistItem::apply_changes(QString field, QVariant value) {
     if (this->init)
         return;
-    return; //TODO
 
     QSqlQuery query(*this->db);
     query.prepare(
-                "UPDATE tracks"
-                "SET " + field + "= :value"
+                "UPDATE tracks "
+                "SET " + field + " = :value "
                 "WHERE path = :path ;"
 
                 );
