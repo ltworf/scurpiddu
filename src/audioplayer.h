@@ -76,6 +76,7 @@ private:
     void _setState(States);
     Metadata _metadata;
     QOpenGLWidget* vo;
+    bool skip_completed_emit;
 
 signals:
     void completed();

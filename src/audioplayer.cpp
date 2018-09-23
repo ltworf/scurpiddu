@@ -62,6 +62,8 @@ AudioPlayer::AudioPlayer(QOpenGLWidget* vo, QObject* parent) : QObject(parent)
 
     if (mpv_initialize(mpv) < 0)
         throw std::runtime_error("mpv failed to initialize");
+
+    skip_completed_emit = false;
 }
 
 AudioPlayer::~AudioPlayer() {
@@ -100,6 +102,8 @@ void AudioPlayer::setVolume(double v) {
 }
 
 void AudioPlayer::open(QByteArray path) {
+    if (_state != AudioPlayer::States::STOPPED)
+        skip_completed_emit = true;
     const char *args[] = {"loadfile", path, NULL};
     mpv_command_async(mpv, 0, args);
 }
@@ -201,6 +205,11 @@ void AudioPlayer::handle_mpv_event(mpv_event *event)
             qDebug() << "queue overflow";
             break;
         case MPV_EVENT_END_FILE:
+            _setState(AudioPlayer::States::STOPPED);
+            if (skip_completed_emit) {
+                skip_completed_emit = false;
+                break;
+            }
             emit completed();
             break;
         case MPV_EVENT_PROPERTY_CHANGE: {
