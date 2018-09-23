@@ -84,6 +84,21 @@ MainWindow::MainWindow(QWidget *parent) :
                 &Playlist::appendPlaylist
     );
 
+    //Playlist controls
+    connect(
+                ui->cmdClearPlaylist,
+                &QPushButton::clicked,
+                &playlist,
+                &Playlist::clear
+    );
+
+    connect(
+                ui->cmdShufflePlaylist,
+                &QPushButton::clicked,
+                &playlist,
+                &Playlist::shuffle
+    );
+
     // Associate model & view
     ui->playlistView->setModel(&playlist);
 }
