@@ -19,7 +19,8 @@ SOURCES += \
     src/playlist/playlist.cpp \
     src/playlist/counterfilter.cpp \
     src/playlist/lastplayedfilter.cpp \
-    src/playlist/playlistcreator.cpp
+    src/playlist/playlistcreator.cpp \
+    src/playlist/searchfilter.cpp
 HEADERS += \
     src/audioplayer.h \
     src/mainwindow.h \
@@ -31,7 +32,8 @@ HEADERS += \
     src/playlist/playlist.h \
     src/playlist/lastplayedfilter.h \
     src/playlist/counterfilter.h \
-    src/playlist/playlistcreator.h
+    src/playlist/playlistcreator.h \
+    src/playlist/searchfilter.h
 
 FORMS += \
     ui/mainwindow.ui \
