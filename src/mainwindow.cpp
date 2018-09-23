@@ -77,25 +77,15 @@ MainWindow::MainWindow(QWidget *parent) :
     );
 
     // Append playlists from creator
-//    connect(
-//                ui->playlistCreator,
-//                &PlaylistCreator::appendPlaylist,
-//                this->playlist,
-//                &Playlist::appendPlaylist
-//    );
     connect(
                 ui->playlistCreator,
                 &PlaylistCreator::appendPlaylist,
-                this,
-                &MainWindow::createPlaylist
+                &this->playlist,
+                &Playlist::appendPlaylist
     );
 
     // Associate model & view
     ui->playlistView->setModel(&playlist);
-}
-
-void MainWindow::createPlaylist(QList<PlaylistItem *> l) {
-    this->playlist.appendPlaylist(l);
 }
 
 MainWindow::~MainWindow()

@@ -41,7 +41,6 @@ public slots:
     void playlistSelect(QModelIndex);
     void nextTrack();
     void previousTrack();
-    void createPlaylist(QList<PlaylistItem*>);
 
 private:
     Ui::MainWindow *ui;
