@@ -17,7 +17,6 @@ along with Scurpiddu. If not, see <http://www.gnu.org/licenses/>.
 Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
-
 #include "playlist.h"
 
 #include <QDateTime>
