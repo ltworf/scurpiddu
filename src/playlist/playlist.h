@@ -38,8 +38,9 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 public slots:
     void setPlaylist(QList<PlaylistItem*>);
-    PlaylistItem* getItem(QModelIndex);
+    PlaylistItem* playing(QModelIndex);
 private:
+    int _playing = -1;
     QList<PlaylistItem*> playlist;
 };
 

@@ -20,6 +20,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 
 #include "playlist.h"
 
+#include <QDateTime>
 #include <QDebug>
 #include <QSize>
 
@@ -56,8 +57,18 @@ void Playlist::setPlaylist(QList<PlaylistItem *> l) {
         this->createIndex(0, 0),
         this->createIndex(l.size() - 1, 0)
     );
+    _playing = -1;
 }
 
-PlaylistItem* Playlist::getItem(QModelIndex i) {
-    return playlist[i.row()];
+PlaylistItem* Playlist::playing(QModelIndex i) {
+    qDebug() << __LINE__;
+    PlaylistItem* item = playlist[i.row()];
+    qDebug() << __LINE__;
+    item->setCounter(item->counter() + 1);
+    qDebug() << __LINE__;
+    item->setLast_played(QDateTime().toSecsSinceEpoch());
+    qDebug() << __LINE__;
+    _playing = i.row();
+    qDebug() << __LINE__;
+    return item;
 }
