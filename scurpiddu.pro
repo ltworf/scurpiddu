@@ -16,7 +16,9 @@ SOURCES += \
     src/playlist/localcollection.cpp \
     src/playlist/randomfilter.cpp \
     src/playlist/playlistitem.cpp \
-    src/playlist/playlist.cpp
+    src/playlist/playlist.cpp \
+    src/playlist/counterfilter.cpp \
+    src/playlist/lastplayedfilter.cpp
 HEADERS += \
     src/audioplayer.h \
     src/mainwindow.h \
@@ -25,7 +27,9 @@ HEADERS += \
     src/playlist/filter.h \
     src/playlist/randomfilter.h \
     src/playlist/playlistitem.h \
-    src/playlist/playlist.h
+    src/playlist/playlist.h \
+    src/playlist/lastplayedfilter.h \
+    src/playlist/counterfilter.h
 
 FORMS += \
     ui/mainwindow.ui
