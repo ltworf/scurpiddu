@@ -65,6 +65,14 @@ MainWindow::MainWindow(QWidget *parent) :
                 &player,
                 &AudioPlayer::playpause
     );
+
+    connect(
+                &player,
+                &AudioPlayer::completed,
+                this,
+                &MainWindow::nextTrack
+    );
+
     RandomFilter f(12);
     playlist.setPlaylist(localcollection.filter(&f));
     ui->playlistView->setModel(&playlist);
@@ -76,5 +84,19 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::playlistSelect(QModelIndex i) {
-    player.open(playlist.getItem(i)->path().toUtf8());
+    PlaylistItem* item = playlist.playing(i);
+    if (item)
+        player.open(item->path().toUtf8());
+}
+
+void MainWindow::nextTrack() {
+    PlaylistItem* item = playlist.next();
+    if (item)
+        player.open(item->path().toUtf8());
+}
+
+void MainWindow::previousTrack() {
+    PlaylistItem* item = playlist.previous();
+    if (item)
+        player.open(item->path().toUtf8());
 }

@@ -40,6 +40,8 @@ public:
     ~MainWindow();
 public slots:
     void playlistSelect(QModelIndex);
+    void nextTrack();
+    void previousTrack();
 
 private:
     Ui::MainWindow *ui;

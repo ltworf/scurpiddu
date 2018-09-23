@@ -60,15 +60,38 @@ void Playlist::setPlaylist(QList<PlaylistItem *> l) {
     _playing = -1;
 }
 
-PlaylistItem* Playlist::playing(QModelIndex i) {
+PlaylistItem* Playlist::playing_int(int i) {
+    _playing = i;
+    if (i == -1) {
+        return NULL;
+    }
     qDebug() << __LINE__;
-    PlaylistItem* item = playlist[i.row()];
+    PlaylistItem* item = playlist[i];
     qDebug() << __LINE__;
     item->setCounter(item->counter() + 1);
     qDebug() << __LINE__;
     item->setLast_played(QDateTime().toSecsSinceEpoch());
     qDebug() << __LINE__;
-    _playing = i.row();
-    qDebug() << __LINE__;
     return item;
+}
+
+PlaylistItem* Playlist::playing(QModelIndex i) {
+    return playing_int(i.row());
+}
+
+PlaylistItem* Playlist::next() {
+    int now_playing = -1;
+    if (_playing == -1 && playlist.size() > 0) {
+        now_playing = 0;
+    } else if (_playing == playlist.size() - 1) {
+        now_playing = -1;
+    } else {
+        now_playing = _playing + 1;
+    }
+    return playing_int(now_playing);
+}
+
+PlaylistItem* Playlist::previous() {
+    //TODO
+    return NULL;
 }

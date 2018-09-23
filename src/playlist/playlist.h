@@ -39,9 +39,13 @@ public:
 public slots:
     void setPlaylist(QList<PlaylistItem*>);
     PlaylistItem* playing(QModelIndex);
+    PlaylistItem* next();
+    PlaylistItem* previous();
+
 private:
     int _playing = -1;
     QList<PlaylistItem*> playlist;
+    PlaylistItem* playing_int(int);
 };
 
 #endif // PLAYLIST_H
