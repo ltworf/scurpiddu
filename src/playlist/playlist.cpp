@@ -92,6 +92,9 @@ PlaylistItem* Playlist::next() {
 }
 
 PlaylistItem* Playlist::previous() {
-    //TODO
-    return NULL;
+    int now_playing = -1;
+    if (_playing != -1) {
+        now_playing = _playing - 1;
+    }
+    return playing_int(now_playing);
 }
