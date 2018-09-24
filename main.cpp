@@ -25,6 +25,9 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+
+    app.setApplicationName("scurpiddu");
+    app.setOrganizationDomain(NULL);
     MainWindow* foo = new MainWindow();
     foo->show();
 
