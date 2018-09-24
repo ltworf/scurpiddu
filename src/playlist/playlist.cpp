@@ -128,6 +128,7 @@ void Playlist::clear() {
 }
 
 void Playlist::shuffle() {
+    _playing = -1;
     std::random_shuffle(playlist.begin(), playlist.end());
     emit this->dataChanged(
         this->createIndex(0, 0),
