@@ -38,7 +38,10 @@ QVariant Playlist::data(const QModelIndex &index, int role) const {
 
     switch (role) {
     case Qt::DisplayRole:
-        return item->title();
+        if (item->title().size())
+            return item->title();
+        else
+            return item->path();
     case Qt::ToolTipRole: {
         return item->artist() + " - " + item->title();
     }
