@@ -39,9 +39,10 @@ public:
 public slots:
     void setPlaylist(QList<PlaylistItem*>);
     void appendPlaylist(QList<PlaylistItem*>);
-    PlaylistItem* playing(QModelIndex);
+    PlaylistItem* setPlaying(QModelIndex);
     PlaylistItem* next();
     PlaylistItem* previous();
+    PlaylistItem* getPlaying();
     void clear();
     void shuffle();
 

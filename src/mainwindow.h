@@ -22,6 +22,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 
 #include <QMainWindow>
 #include <QModelIndex>
+#include <QString>
 
 #include "audioplayer.h"
 #include "playlist/playlist.h"
@@ -42,6 +43,7 @@ public slots:
     void nextTrack();
     void previousTrack();
     void player_status_changed(AudioPlayer::States);
+    void update_metadata(QString key, QString value);
 
 private:
     Ui::MainWindow *ui;

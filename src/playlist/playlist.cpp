@@ -98,7 +98,7 @@ PlaylistItem* Playlist::playing_int(int i) {
     return item;
 }
 
-PlaylistItem* Playlist::playing(QModelIndex i) {
+PlaylistItem* Playlist::setPlaying(QModelIndex i) {
     return playing_int(i.row());
 }
 
@@ -120,6 +120,12 @@ PlaylistItem* Playlist::previous() {
         now_playing = _playing - 1;
     }
     return playing_int(now_playing);
+}
+
+PlaylistItem* Playlist::getPlaying() {
+    if (_playing != -1)
+        return this->playlist[_playing];
+    return NULL;
 }
 
 void Playlist::clear() {
