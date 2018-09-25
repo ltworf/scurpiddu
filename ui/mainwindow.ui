@@ -78,6 +78,9 @@
           <height>24</height>
          </size>
         </property>
+        <property name="shortcut">
+         <string>Ctrl+Shift+Del</string>
+        </property>
         <property name="flat">
          <bool>true</bool>
         </property>
