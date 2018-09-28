@@ -85,6 +85,13 @@ MainWindow::MainWindow(QWidget *parent) :
                 &MainWindow::update_metadata
     );
 
+    connect(
+                &playlist,
+                &Playlist::trackChanged,
+                this,
+                &MainWindow::playlist_track_changed
+    );
+
     // Next on track completed
     connect(
                 &player,
@@ -180,6 +187,16 @@ void MainWindow::update_track_info(QPushButton *l) {
         current->setAlbum(val);
     else if (l == this->ui->cmdArtist)
         current->setArtist(val);
+}
+
+void MainWindow::playlist_track_changed() {
+    PlaylistItem* current = this->playlist.getPlaying();
+    if (current == NULL)
+        return;
+
+    ui->cmdAlbum->setText(current->album());
+    ui->cmdArtist->setText(current->artist());
+    ui->cmdTitle->setText(current->title());
 }
 
 void MainWindow::player_status_changed(AudioPlayer::States newstate) {

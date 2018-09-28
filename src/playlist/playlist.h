@@ -37,6 +37,8 @@ public:
     Playlist(QObject *parent = NULL);
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+signals:
+    void trackChanged();
 public slots:
     void setPlaylist(QList<PlaylistItem*>);
     void appendPlaylist(QList<PlaylistItem*>);
@@ -52,6 +54,7 @@ private:
     int _playing = -1;
     QList<PlaylistItem*> playlist;
     PlaylistItem* playing_int(int);
+    void updatePlaying(int);
 };
 
 #endif // PLAYLIST_H

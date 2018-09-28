@@ -46,6 +46,7 @@ public slots:
     void player_status_changed(AudioPlayer::States);
     void update_metadata(QString key, QString value);
     void update_track_info(QPushButton*);
+    void playlist_track_changed();
 
 private:
     Ui::MainWindow *ui;

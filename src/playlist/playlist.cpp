@@ -72,7 +72,7 @@ void Playlist::removeTracks(QModelIndexList l) {
         if (min > row)
             min = row;
         if (_playing == row - removed)
-            _playing = -1;
+            updatePlaying(-1);
         else if (_playing > row - removed)
             _playing--;
 
@@ -96,7 +96,7 @@ void Playlist::setPlaylist(QList<PlaylistItem *> l) {
         this->createIndex(0, 0),
         this->createIndex(l.size() - 1, 0)
     );
-    _playing = -1;
+    updatePlaying(-1);
 }
 
 void Playlist::appendPlaylist(QList<PlaylistItem*> l) {
@@ -113,7 +113,7 @@ PlaylistItem* Playlist::playing_int(int i) {
         this->createIndex(_playing, 0),
         this->createIndex(_playing - 1, 0)
     );
-    _playing = i;
+    updatePlaying(i);
     if (i == -1) {
         return NULL;
     }
@@ -163,10 +163,17 @@ void Playlist::clear() {
 }
 
 void Playlist::shuffle() {
-    _playing = -1;
+    updatePlaying(-1);
     std::random_shuffle(playlist.begin(), playlist.end());
     emit this->dataChanged(
         this->createIndex(0, 0),
         this->createIndex(playlist.size() - 1, 0)
     );
+}
+
+void Playlist::updatePlaying(int new_val) {
+    if (new_val == _playing)
+        return;
+    _playing = new_val;
+    emit trackChanged();
 }
