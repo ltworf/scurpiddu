@@ -59,6 +59,35 @@ QVariant Playlist::data(const QModelIndex &index, int role) const {
     return QVariant();
 }
 
+void Playlist::removeTracks(QModelIndexList l) {
+    int min = playlist.size();
+    int removed = 0;
+
+    //The selection is sorted in order of click, sort it
+    std::sort(l.begin(), l.end());
+
+    for (int i = 0; i < l.size(); i++) {
+        int row = l[i].row();
+
+        if (min > row)
+            min = row;
+        if (_playing == row - removed)
+            _playing = -1;
+        else if (_playing > row - removed)
+            _playing--;
+
+        delete playlist[row - removed];
+        playlist.removeAt(row - removed);
+
+        removed++;
+    }
+
+    emit this->dataChanged(
+        this->createIndex(min, 0),
+        this->createIndex(playlist.size() - 1, 0)
+    );
+}
+
 void Playlist::setPlaylist(QList<PlaylistItem *> l) {
     qDeleteAll(playlist.begin(), playlist.end());
     playlist = l;

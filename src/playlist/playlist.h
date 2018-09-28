@@ -26,6 +26,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include <QList>
 #include <QVariant>
 #include <QModelIndex>
+#include <QModelIndexList>
 
 #include "playlistitem.h"
 
@@ -43,6 +44,7 @@ public slots:
     PlaylistItem* next();
     PlaylistItem* previous();
     PlaylistItem* getPlaying();
+    void removeTracks(QModelIndexList);
     void clear();
     void shuffle();
 
