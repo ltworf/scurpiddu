@@ -115,6 +115,15 @@ MainWindow::MainWindow(QWidget *parent) :
                 &Playlist::shuffle
     );
 
+    connect(
+                ui->cmdDelete,
+                &QPushButton::clicked,
+                [this]() {
+                    this->playlist.removeTracks(this->ui->playlistView->selectionModel()->selectedIndexes());
+                }
+    );
+
+
     // Associate model & view
     ui->playlistView->setModel(&playlist);
 }
