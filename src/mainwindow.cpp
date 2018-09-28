@@ -20,6 +20,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include <QDebug>
 #include <QPushButton>
 #include <QIcon>
+#include <QInputDialog>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -123,6 +124,31 @@ MainWindow::MainWindow(QWidget *parent) :
                 }
     );
 
+    //Track info
+    connect(
+                ui->cmdTitle,
+                &QPushButton::clicked,
+                [this]() {
+                    this->update_track_info(ui->cmdTitle);
+                }
+    );
+
+    connect(
+                ui->cmdArtist,
+                &QPushButton::clicked,
+                [this]() {
+                    this->update_track_info(ui->cmdArtist);
+                }
+    );
+
+    connect(
+                ui->cmdAlbum,
+                &QPushButton::clicked,
+                [this]() {
+                    this->update_track_info(ui->cmdAlbum);
+                }
+    );
+
 
     // Associate model & view
     ui->playlistView->setModel(&playlist);
@@ -131,6 +157,29 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::update_track_info(QPushButton *l) {
+    PlaylistItem* current = this->playlist.getPlaying();
+    if (current == NULL)
+        return;
+    QInputDialog dialog(this);
+    bool ok;
+    QString val = dialog.getText(this, "Update track info", l->toolTip(), QLineEdit::Normal, l->text(), &ok);
+    if (! ok || val.isEmpty())
+        return;
+
+    //If the track changed meanwhile, do nothing
+    if (this->playlist.getPlaying() != current)
+        return;
+
+    l->setText(val);
+    if (l == this->ui->cmdTitle)
+        current->setTitle(val);
+    else if (l == this->ui->cmdAlbum)
+        current->setAlbum(val);
+    else if (l == this->ui->cmdArtist)
+        current->setArtist(val);
 }
 
 void MainWindow::player_status_changed(AudioPlayer::States newstate) {
@@ -146,18 +195,16 @@ void MainWindow::player_status_changed(AudioPlayer::States newstate) {
 }
 
 void MainWindow::update_metadata(QString key, QString value) {
-    PlaylistItem* current = this->playlist.getPlaying();
-
     if (key == "title") {
-        ui->lblTitle->setText(value);
+        ui->cmdTitle->setText(value);
     } else
 
     if (key == "album") {
-        ui->lblAlbum->setText(value);
+        ui->cmdAlbum->setText(value);
     } else
 
     if (key == "artist") {
-        ui->lblArtist->setText(value);
+        ui->cmdArtist->setText(value);
     }
 
 }
