@@ -141,46 +141,16 @@ void MainWindow::update_metadata(QString key, QString value) {
 
     if (key == "title") {
         ui->lblTitle->setText(value);
-        if (current) current->setTitle(value);
     } else
 
     if (key == "album") {
         ui->lblAlbum->setText(value);
-        if (current) current->setAlbum(value);
-    } else
-
-    if (key == "album_artist") {
-        if (current) current->setAlbum_artist(value);
     } else
 
     if (key == "artist") {
         ui->lblArtist->setText(value);
-        if (current) current->setArtist(value);
-    } else
-
-    if (key == "publisher") {
-        if (current) current->setPublisher(value);
-    } else
-
-    if (key == "disc") {
-        if (current) current->setDisc(value);
-    } else
-
-    if (key == "comment") {
-        if (current) current->setComment(value);
-    } else
-
-    if (key == "date") {
-        if (current) current->setDate(value);
-    } else
-
-    if (key == "genre") {
-        if (current) current->setGenre(value);
-    } else
-
-    if (key == "track") {
-        if (current) current->setTrack(value);
     }
+
 }
 
 void MainWindow::playlistSelect(QModelIndex i) {
