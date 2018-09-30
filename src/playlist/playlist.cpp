@@ -68,6 +68,8 @@ void Playlist::removeTracks(QModelIndexList l) {
 
     for (int i = 0; i < l.size(); i++) {
         int row = l[i].row();
+        if (row - removed >= playlist.size())
+            break;
 
         if (min > row)
             min = row;
