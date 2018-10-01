@@ -24,6 +24,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include <QModelIndex>
 #include <QString>
 #include <QPushButton>
+#include <QSystemTrayIcon>
 
 #include "audioplayer.h"
 #include "playlist/playlist.h"
@@ -52,6 +53,7 @@ private:
     Ui::MainWindow *ui;
     AudioPlayer player;
     Playlist playlist;
+    QSystemTrayIcon tray;
 };
 
 #endif // MAINWINDOW_H

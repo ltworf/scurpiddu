@@ -31,6 +31,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    tray.setIcon(QIcon::fromTheme("media-playback-start"));
+    tray.setToolTip("Scurpiddu");
+    tray.show();
+
 
     // Volume
     connect(
@@ -197,18 +201,23 @@ void MainWindow::playlist_track_changed() {
     ui->cmdAlbum->setText(current->album());
     ui->cmdArtist->setText(current->artist());
     ui->cmdTitle->setText(current->title());
+    QString msg = "Now playing: " + current->title() + " - " + current->artist();
+    tray.showMessage("Scurpiddu", msg, QIcon::fromTheme("media-playback-start"), 3000);
 }
 
 void MainWindow::player_status_changed(AudioPlayer::States newstate) {
+    QIcon new_icon;
     switch (newstate) {
         case  AudioPlayer::States::PLAYING:
-            ui->cmdPlayPause->setIcon(QIcon::fromTheme("media-playback-pause"));
+            new_icon = QIcon::fromTheme("media-playback-pause");
             break;
         case  AudioPlayer::States::PAUSED:
         case  AudioPlayer::States::STOPPED:
-            ui->cmdPlayPause->setIcon(QIcon::fromTheme("media-playback-start"));
+            new_icon = QIcon::fromTheme("media-playback-start");
             break;
     }
+    tray.setIcon(new_icon);
+    ui->cmdPlayPause->setIcon(new_icon);
 }
 
 void MainWindow::update_metadata(QString key, QString value) {
