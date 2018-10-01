@@ -48,6 +48,8 @@ public slots:
     void update_metadata(QString key, QString value);
     void update_track_info(QPushButton*);
     void playlist_track_changed();
+private slots:
+    void tray_action(QSystemTrayIcon::ActivationReason);
 
 private:
     Ui::MainWindow *ui;

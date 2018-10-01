@@ -31,10 +31,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    //Tray icon
     tray.setIcon(QIcon::fromTheme("media-playback-start"));
     tray.setToolTip("Scurpiddu");
     tray.show();
 
+    connect(
+                &tray,
+                &QSystemTrayIcon::activated,
+                this,
+                &MainWindow::tray_action
+    );
 
     // Volume
     connect(
@@ -168,6 +176,23 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::tray_action(QSystemTrayIcon::ActivationReason reason) {
+    switch (reason) {
+    case QSystemTrayIcon::MiddleClick:
+        this->player.playpause();
+        break;
+    case QSystemTrayIcon::Trigger:
+        if (this->isHidden())
+            this->show();
+        else
+            this->hide();
+        break;
+    default:
+        break;
+    }
+
 }
 
 void MainWindow::update_track_info(QPushButton *l) {
