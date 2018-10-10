@@ -161,7 +161,7 @@ void LocalCollection::populate() {
 
         TagLib::FileRef tags(i.filePath().toStdString().c_str());
         //TODO tags.tag()->properties()
-        if (!tags.tag()->isEmpty()) {
+        if (!tags.isNull() && !tags.tag()->isEmpty()) {
             query.bindValue(":title", tags.tag()->title().toCString(true));
             query.bindValue(":album", tags.tag()->album().toCString(true));
             query.bindValue(":artist", tags.tag()->artist().toCString(true));
