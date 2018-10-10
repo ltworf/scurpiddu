@@ -82,6 +82,10 @@ void LocalCollection::populate() {
         ".m4a",
         ".ogg",
         ".flac",
+        ".webm",
+        ".mkv",
+        ".mp4",
+        ".aif",
     };
 
     int inscounter = 0;
