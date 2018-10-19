@@ -21,6 +21,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include <QPushButton>
 #include <QIcon>
 #include <QInputDialog>
+#include <QCoreApplication>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -35,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Tray icon
     tray.setIcon(QIcon::fromTheme("media-playback-start"));
     tray.setToolTip("Scurpiddu");
+    tray.setContextMenu(ui->menu_File);
     tray.show();
 
     connect(
@@ -42,6 +44,14 @@ MainWindow::MainWindow(QWidget *parent) :
                 &QSystemTrayIcon::activated,
                 this,
                 &MainWindow::tray_action
+    );
+
+    //Quit menu
+    connect(
+                ui->action_Quit,
+                &QAction::triggered,
+                QCoreApplication::instance(),
+                &QCoreApplication::quit
     );
 
     // Volume
@@ -78,6 +88,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(
                 ui->cmdPlayPause,
                 &QPushButton::clicked,
+                &player,
+                &AudioPlayer::playpause
+    );
+
+    connect(
+                ui->actionPlay_pause,
+                &QAction::triggered,
                 &player,
                 &AudioPlayer::playpause
     );
@@ -243,6 +260,7 @@ void MainWindow::player_status_changed(AudioPlayer::States newstate) {
     }
     tray.setIcon(new_icon);
     ui->cmdPlayPause->setIcon(new_icon);
+    ui->actionPlay_pause->setIcon(new_icon);
 }
 
 void MainWindow::update_metadata(QString key, QString value) {
