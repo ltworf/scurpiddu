@@ -245,6 +245,7 @@ void MainWindow::playlist_track_changed() {
     ui->cmdTitle->setText(current->title());
     QString msg = "Now playing: " + current->title() + " - " + current->artist();
     tray.showMessage("Scurpiddu", msg, QIcon::fromTheme("media-playback-start"), 3000);
+    tray.setToolTip("<h1>Scurpiddu</h1><br>" + msg);
 }
 
 void MainWindow::player_status_changed(AudioPlayer::States newstate) {
