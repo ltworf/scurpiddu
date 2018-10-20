@@ -45,6 +45,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="cmdShufflePlaylist">
+        <property name="toolTip">
+         <string>Shuffle playlist</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -65,6 +68,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="cmdDelete">
+        <property name="toolTip">
+         <string>Delete tracks</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -88,6 +94,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="cmdClearPlaylist">
+        <property name="toolTip">
+         <string>Clear playlist</string>
+        </property>
         <property name="text">
          <string/>
         </property>
