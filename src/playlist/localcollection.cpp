@@ -117,7 +117,7 @@ void LocalCollection::populate() {
         if (!media)
             continue;
 
-         QSqlQuery query;
+        QSqlQuery query;
 
         //Do not rescan scanned files
         query.prepare ("SELECT timestamp FROM tracks WHERE path = :path");
@@ -214,9 +214,26 @@ QList<PlaylistItem*> LocalCollection::filter(Filter *f) {
     f->prepare(&query);
     query.exec();
     while (query.next()) {
+        QString path = query.value("path").toString();
+
+        if (!QFile(path).exists()) { //File got deleted, removing it from the collection
+            QSqlQuery query;
+            query.prepare(
+                        "DELETE FROM tracks "
+                        "WHERE path = :path ;"
+                        );
+            query.bindValue(":path", path);
+            if (!query.exec()) {
+                qDebug() << "Query error" << query.lastError();
+                qDebug() << "Last query" << query.lastQuery();
+                qDebug() << "Last values" << query.boundValues() ;
+            }
+            continue;
+        }
+
         PlaylistItem* item = new PlaylistItem(
                     this,
-                    query.value("path").toString(),
+                    path,
                     true,
                     &this->db
         );
