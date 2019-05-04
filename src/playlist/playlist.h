@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Scurpiddu. If not, see <http://www.gnu.org/licenses/>.
 
-Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
+Copyright (C) 2018-2019  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
 
@@ -24,6 +24,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include <QObject>
 #include <QAbstractListModel>
 #include <QList>
+#include <QStringList>
 #include <QVariant>
 #include <QModelIndex>
 #include <QModelIndexList>
@@ -49,6 +50,7 @@ public slots:
     void removeTracks(QModelIndexList);
     void clear();
     void shuffle();
+    QStringList dump();
 
 private:
     int _playing = -1;

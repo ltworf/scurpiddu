@@ -179,3 +179,11 @@ void Playlist::updatePlaying(int new_val) {
     _playing = new_val;
     emit trackChanged();
 }
+
+QStringList Playlist::dump() {
+    QStringList r;
+    for (int i = 0; i < playlist.size(); i++) {
+        r.append(playlist[i]->path());
+    }
+    return r;
+}
