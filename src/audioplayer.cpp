@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Scurpiddu. If not, see <http://www.gnu.org/licenses/>.
 
-Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
+Copyright (C) 2018-2019  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
 #include <QDebug>
@@ -104,13 +104,13 @@ void AudioPlayer::setVolume(double v) {
 void AudioPlayer::open(QByteArray path) {
     if (_state != AudioPlayer::States::STOPPED)
         skip_completed_emit = true;
-    const char *args[] = {"loadfile", path, NULL};
+    const char *args[] = {"loadfile", path, nullptr};
     mpv_command_async(mpv, 0, args);
 }
 
 void AudioPlayer::seek(double position) {
     const char* value = QString::number(position).toStdString().c_str();
-    const char *args[] = {"seek", value, "absolute", NULL};
+    const char *args[] = {"seek", value, "absolute", nullptr};
     mpv_command_async(mpv, 0, args);
 }
 
@@ -132,7 +132,7 @@ void AudioPlayer::playpause() {
 
 void AudioPlayer::stop() {
     _setState(AudioPlayer::States::STOPPED);
-    const char *args[] = {"stop", NULL};
+    const char *args[] = {"stop", nullptr};
     mpv_command_async(mpv, 0, args);
 }
 
@@ -254,7 +254,7 @@ void AudioPlayer::handle_mpv_event(mpv_event *event)
             }
         case MPV_EVENT_SHUTDOWN:
             mpv_terminate_destroy(mpv);
-            mpv = NULL;
+            mpv = nullptr;
             break;
         default:
             break;

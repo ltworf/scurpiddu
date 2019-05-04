@@ -35,7 +35,7 @@ class Playlist : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    Playlist(QObject *parent = NULL);
+    Playlist(QObject *parent = nullptr);
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 signals:

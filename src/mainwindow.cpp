@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Scurpiddu. If not, see <http://www.gnu.org/licenses/>.
 
-Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
+Copyright (C) 2018-2019  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
 #include <QDebug>
@@ -214,7 +214,7 @@ void MainWindow::tray_action(QSystemTrayIcon::ActivationReason reason) {
 
 void MainWindow::update_track_info(QPushButton *l) {
     PlaylistItem* current = this->playlist.getPlaying();
-    if (current == NULL)
+    if (current == nullptr)
         return;
     QInputDialog dialog(this);
     bool ok;
