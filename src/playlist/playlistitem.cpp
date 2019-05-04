@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Scurpiddu. If not, see <http://www.gnu.org/licenses/>.
 
-Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
+Copyright (C) 2018-2019  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
 #include "playlistitem.h"
@@ -64,7 +64,7 @@ int PlaylistItem::counter() {
     return this->_counter;
 }
 
-int PlaylistItem::last_played() {
+long long PlaylistItem::last_played() {
     return this->_last_played;
 }
 
@@ -203,7 +203,7 @@ void PlaylistItem::setCounter(int v) {
     this->_counter = v;
 }
 
-void PlaylistItem::setLast_played(int v) {
+void PlaylistItem::setLast_played(long long v) {
     this->apply_changes("last_played", v);
     emit last_playedChanged(v);
     this->_last_played = v;

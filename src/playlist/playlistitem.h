@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Scurpiddu. If not, see <http://www.gnu.org/licenses/>.
 
-Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
+Copyright (C) 2018-2019  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
 #ifndef PLAYLISTITEM_H
@@ -34,7 +34,7 @@ public:
 signals:
     void scoreChanged(int);
     void counterChanged(int);
-    void last_playedChanged(int);
+    void last_playedChanged(long long);
     void coverChanged(QString);
     void albumChanged(QString);
     void album_artistChanged(QString);
@@ -52,7 +52,7 @@ public slots:
     QString path();
     int score();
     int counter();
-    int last_played();
+    long long last_played();
     QString cover();
     void setCover(QString);
     QString album();
@@ -78,7 +78,7 @@ public slots:
     void initialised();
     void setScore(int);
     void setCounter(int);
-    void setLast_played(int);
+    void setLast_played(long long);
 
 private:
     void apply_changes(QString field, QVariant value);
@@ -89,7 +89,7 @@ private:
     //Playback attributes
     int _score = 0;
     int _counter = 0;
-    int _last_played = 0;
+    long long _last_played = 0;
     //Tags
     QString _cover;
     QString _album;

@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Scurpiddu. If not, see <http://www.gnu.org/licenses/>.
 
-Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
+Copyright (C) 2018-2019  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
 #include "playlist.h"
@@ -117,7 +117,7 @@ PlaylistItem* Playlist::playing_int(int i) {
     );
     updatePlaying(i);
     if (i == -1) {
-        return NULL;
+        return nullptr;
     }
     PlaylistItem* item = playlist[i];
     item->setCounter(item->counter() + 1);
@@ -156,7 +156,7 @@ PlaylistItem* Playlist::previous() {
 PlaylistItem* Playlist::getPlaying() {
     if (_playing != -1)
         return this->playlist[_playing];
-    return NULL;
+    return nullptr;
 }
 
 void Playlist::clear() {

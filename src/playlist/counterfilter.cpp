@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Scurpiddu. If not, see <http://www.gnu.org/licenses/>.
 
-Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
+Copyright (C) 2018-2019  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
 #include <QVariant>
@@ -27,7 +27,7 @@ CounterFilter::CounterFilter(unsigned int limit, bool desc) {
 }
 
 void CounterFilter::prepare(QSqlQuery *query) {
-    char * qstr;
+    const char * qstr;
     if (desc)
         qstr = "SELECT * from tracks ORDER BY counter DESC LIMIT :limit;";
     else
