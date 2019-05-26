@@ -212,7 +212,11 @@ QList<PlaylistItem*> LocalCollection::filter(Filter *f) {
     QSqlQuery query;
     query.setForwardOnly(true);
     f->prepare(&query);
-    query.exec();
+    if (!query.exec()) {
+        qDebug() << "Query error" << query.lastError();
+        qDebug() << "Last query" << query.lastQuery();
+        qDebug() << "Last values" << query.boundValues() ;
+    }
     while (query.next()) {
         QString path = query.value("path").toString();
 
