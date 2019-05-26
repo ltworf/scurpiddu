@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Scurpiddu. If not, see <http://www.gnu.org/licenses/>.
 
-Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
+Copyright (C) 2018-2019  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
 #include <QDebug>
@@ -24,6 +24,7 @@ Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include "lastplayedfilter.h"
 #include "counterfilter.h"
 #include "searchfilter.h"
+#include "restorefilter.h"
 
 PlaylistCreator::PlaylistCreator(QWidget *parent) :
     QWidget(parent),
@@ -54,6 +55,11 @@ void PlaylistCreator::lastPlayed() {
 
 void PlaylistCreator::search() {
     SearchFilter f(ui->spinLimit->value(), this->ui->txtSearch->text());
+    emit appendPlaylist(localcollection.filter(&f));
+}
+
+void PlaylistCreator::restore() {
+    RestoreFilter f;
     emit appendPlaylist(localcollection.filter(&f));
 }
 

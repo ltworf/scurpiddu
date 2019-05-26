@@ -188,6 +188,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Associate model & view
     ui->playlistView->setModel(&playlist);
+
+    // Restore playlist from settings
+    ui->playlistCreator->restore();
 }
 
 MainWindow::~MainWindow()

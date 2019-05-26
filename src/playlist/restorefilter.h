@@ -14,42 +14,20 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Scurpiddu. If not, see <http://www.gnu.org/licenses/>.
 
-Copyright (C) 2018  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
+Copyright (C) 2019  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
+#ifndef RESTOREFILTER_H
+#define RESTOREFILTER_H
 
-#ifndef PLAYLISTCREATOR_H
-#define PLAYLISTCREATOR_H
+#include "filter.h"
 
-#include <QList>
-#include <QWidget>
 
-#include "localcollection.h"
-#include "playlistitem.h"
-
-namespace Ui {
-class PlaylistCreator;
-}
-
-class PlaylistCreator : public QWidget
+class RestoreFilter: public Filter
 {
-    Q_OBJECT
-
 public:
-    explicit PlaylistCreator(QWidget *parent = 0);
-    ~PlaylistCreator();
-public slots:
-    void random();
-    void counter();
-    void lastPlayed();
-    void search();
-    void restore();
-signals:
-    void appendPlaylist(QList<PlaylistItem*>);
-
-private:
-    Ui::PlaylistCreator *ui;
-    LocalCollection localcollection;
+    RestoreFilter();
+    virtual void prepare(QSqlQuery*);
 };
 
-#endif // PLAYLISTCREATOR_H
+#endif // RESTOREFILTER_H
