@@ -22,11 +22,17 @@ Copyright (C) 2018-2019  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include <QBrush>
 #include <QDateTime>
 #include <QSize>
+#include <QSettings>
 #include <algorithm>
 
 Playlist::Playlist(QObject *parent): QAbstractListModel(parent)
 {
 
+}
+
+void Playlist::saveDump() {
+    QSettings settings;
+    settings.setValue("playlist/playlist", this->dump());
 }
 
 int Playlist::rowCount(const QModelIndex &parent) const {
@@ -88,6 +94,9 @@ void Playlist::removeTracks(QModelIndexList l) {
         this->createIndex(min, 0),
         this->createIndex(playlist.size() - 1, 0)
     );
+    this->saveDump();
+    QSettings settings;
+    settings.setValue("playlist/current", this->_playing);
 }
 
 void Playlist::setPlaylist(QList<PlaylistItem *> l) {
@@ -99,6 +108,7 @@ void Playlist::setPlaylist(QList<PlaylistItem *> l) {
         this->createIndex(l.size() - 1, 0)
     );
     updatePlaying(-1);
+    this->saveDump();
 }
 
 void Playlist::appendPlaylist(QList<PlaylistItem*> l) {
@@ -108,6 +118,7 @@ void Playlist::appendPlaylist(QList<PlaylistItem*> l) {
         this->createIndex(initial_size, 0),
         this->createIndex(l.size() - 1, 0)
     );
+    this->saveDump();
 }
 
 PlaylistItem* Playlist::playing_int(int i) {
@@ -171,6 +182,7 @@ void Playlist::shuffle() {
         this->createIndex(0, 0),
         this->createIndex(playlist.size() - 1, 0)
     );
+    this->saveDump();
 }
 
 void Playlist::updatePlaying(int new_val) {
@@ -178,6 +190,9 @@ void Playlist::updatePlaying(int new_val) {
         return;
     _playing = new_val;
     emit trackChanged();
+
+    QSettings settings;
+    settings.setValue("playlist/current", this->_playing);
 }
 
 QStringList Playlist::dump() {

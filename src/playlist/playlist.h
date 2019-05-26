@@ -57,6 +57,7 @@ private:
     QList<PlaylistItem*> playlist;
     PlaylistItem* playing_int(int);
     void updatePlaying(int);
+    void saveDump();
 };
 
 #endif // PLAYLIST_H
