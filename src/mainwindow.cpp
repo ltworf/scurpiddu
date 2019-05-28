@@ -22,6 +22,7 @@ Copyright (C) 2018-2019  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include <QIcon>
 #include <QInputDialog>
 #include <QCoreApplication>
+#include <QMessageBox>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -150,6 +151,26 @@ MainWindow::MainWindow(QWidget *parent) :
                 &QPushButton::clicked,
                 &playlist,
                 &Playlist::shuffle
+    );
+
+    connect(
+                ui->cmdDeleteFile,
+                &QPushButton::clicked,
+                [this] () {
+                    PlaylistItem* current = playlist.getPlaying();
+                    if (!current)
+                        return;
+                    int r = QMessageBox::question(
+                                this,
+                                "File deletion",
+                                "Permanently delete the file: \"" + current->path() + "\"?",
+                                QMessageBox::Yes | QMessageBox::No,
+                                QMessageBox::No
+                    );
+                    if (r == QMessageBox::Yes) {
+                        current->delete_path();
+                    }
+                }
     );
 
     connect(
