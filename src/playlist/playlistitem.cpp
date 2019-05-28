@@ -20,6 +20,7 @@ Copyright (C) 2018-2019  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include "playlistitem.h"
 
 #include <QDebug>
+#include <QFile>
 #include <QSqlQuery>
 #include <QSqlError>
 
@@ -102,6 +103,11 @@ QString PlaylistItem::title() {
 
 QString PlaylistItem::track() {
     return this->_track;
+}
+
+void PlaylistItem::delete_path() {
+    QFile f(this->path());
+    f.remove();
 }
 
 void PlaylistItem::apply_changes(QString field, QVariant value) {

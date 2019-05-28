@@ -79,6 +79,7 @@ public slots:
     void setScore(int);
     void setCounter(int);
     void setLast_played(long long);
+    void delete_path();
 
 private:
     void apply_changes(QString field, QVariant value);
