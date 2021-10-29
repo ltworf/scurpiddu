@@ -18,10 +18,6 @@
 
 #include <mpv/client.h>
 
-#if !MPV_ENABLE_DEPRECATED
-#error "This helper is deprecated. Copy it into your project instead."
-#else
-
 /**
  * Note: these helpers are provided for convenience for C++/Qt applications.
  * This is based on the public API in client.h, and it does not encode any
@@ -380,7 +376,5 @@ static inline QVariant command(mpv_handle *ctx, const QVariant &args)
 }
 
 Q_DECLARE_METATYPE(mpv::qt::ErrorReturn)
-
-#endif /* else #if MPV_ENABLE_DEPRECATED */
 
 #endif
