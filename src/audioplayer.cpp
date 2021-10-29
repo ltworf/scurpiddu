@@ -22,8 +22,8 @@ Copyright (C) 2018-2019  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QString>
-#include <mpv/qthelper.hpp>
 
+#include "mpv/qthelper.hpp"
 #include "audioplayer.h"
 
 static void wakeup(void *mpv)

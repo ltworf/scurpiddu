@@ -26,6 +26,7 @@ HEADERS += \
     src/audioplayer.h \
     src/mainwindow.h \
     src/metadata.h \
+    src/mpv/qthelper.hpp \
     src/playlist/localcollection.h \
     src/playlist/filter.h \
     src/playlist/randomfilter.h \
