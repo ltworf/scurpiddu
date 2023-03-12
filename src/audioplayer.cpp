@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Scurpiddu. If not, see <http://www.gnu.org/licenses/>.
 
-Copyright (C) 2018-2019  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
+Copyright (C) 2018-2023  Salvo "LtWorf" Tomaselli <tiposchi@tiscali.it>
 */
 
 #include <QDebug>
@@ -161,26 +161,11 @@ void AudioPlayer::handle_mpv_event(mpv_event *event)
             emit durationChanged(_duration);
             break;
             }
-        case MPV_EVENT_TRACKS_CHANGED:
-            qDebug() << "tracks changed";
-            break;
-        case MPV_EVENT_TRACK_SWITCHED:
-            qDebug() << "tracks switched";
-           break;
         case MPV_EVENT_IDLE:
             qDebug() << "idle";
             break;
-        case MPV_EVENT_PAUSE:
-            qDebug() << "pause";
-           break;
-        case MPV_EVENT_UNPAUSE:
-            qDebug() << "unpause";
-            break;
         case MPV_EVENT_TICK:
             qDebug() << "tick";
-            break;
-        case MPV_EVENT_SCRIPT_INPUT_DISPATCH:
-            qDebug() << "script input dispatch";
             break;
         case MPV_EVENT_CLIENT_MESSAGE:
             qDebug() << "client message";
@@ -196,9 +181,6 @@ void AudioPlayer::handle_mpv_event(mpv_event *event)
         case MPV_EVENT_PLAYBACK_RESTART:
             qDebug() << "playing";
             _setState(AudioPlayer::States::PLAYING);
-            break;
-        case MPV_EVENT_CHAPTER_CHANGE:
-            qDebug() << "chapter change";
             break;
         case MPV_EVENT_QUEUE_OVERFLOW:
             qDebug() << "queue overflow";
